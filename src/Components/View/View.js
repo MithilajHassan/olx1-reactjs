@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import {PostContext} from '../../store/PostContext'
 import './View.css';
 import { firebaseContext } from '../../store/Context';
@@ -11,11 +11,10 @@ function View() {
   const {username,phone} = userDetails
 
   useEffect(()=>{
-    console.log(userId)
     getDocs(query(collection(db, 'users'), where("id", "==", userId))).then((snapshot)=>{
       setUserDetails(snapshot.docs[0].data())
     }).catch((e)=>{
-      console.log(e.message);
+      alert('Server error')
     }) 
   },[])
   return (
@@ -42,4 +41,4 @@ function View() {
     </div>
   );
 }
-export default View;
+export default memo(View);

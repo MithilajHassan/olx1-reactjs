@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import Heart from '../../assets/Heart';
 import { firebaseContext } from '../../store/Context';
 import { collection, getDocs } from 'firebase/firestore';
@@ -58,7 +58,7 @@ function Posts() {
           })}
         </div>
       </div>
-      <div className="recommendations">
+      {/* <div className="recommendations">
         <div className="heading">
           <span>Fresh recommendations</span>
         </div>
@@ -80,9 +80,9 @@ function Posts() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default Posts;
+export default memo(Posts);

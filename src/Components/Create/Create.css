@@ -1,7 +1,7 @@
 .centerDiv {
     border: 1px solid black;
     width: max-content;
-    padding: 50px;
+    padding: 25px;
     position: absolute;
     top: 55%;
     left: 50%;
@@ -28,5 +28,11 @@
     background-color: white;
     color: #002f34;
     border: 2px solid #002f34;
+  }
+  .errMsg{
+    color: red;
+    text-align: center;
+    font-size: medium;
+    margin-bottom: 0;
   }
   

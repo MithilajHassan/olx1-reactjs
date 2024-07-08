@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { memo, useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom'
 import { firebaseContext } from '../../store/Context';
 import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
@@ -9,7 +9,7 @@ import Logo from '../../olx-logo.png';
 import Loading from '../Loading/Loading';
 import './Signup.css';
 
-export default function Signup() {
+export default memo(function Signup() {
   const [loading,setLoading] = useState(false)
   const [errMsg,setMsg] = useState('')
   const [username,setUsername] = useState('')
@@ -22,9 +22,9 @@ export default function Signup() {
     e.preventDefault()
     setLoading(true)
     const snapshot = await getDocs(query(collection(db, 'users'), where("username", "==", username)))
-    if(!username.match(/[A-Za-z].{3,}/)){
+    if(!username.match(/^[a-z0-9_]{3,}$/i)){
       setLoading(false)
-      setMsg('Username at least three characters')
+      setMsg('Username at least 3 characters')
     }else if(!snapshot.empty){
       setLoading(false)
       setMsg('Username is already exist')
@@ -32,9 +32,9 @@ export default function Signup() {
       setLoading(false)
       setMsg('Enter a proper email')
     }
-    else if(!phone.match(/^\d{10}$/)){
+    else if(!phone.match(/^[1-9][0-9]{9}$/)){
       setLoading(false)
-      setMsg('Phone number must be 10 digits')
+      setMsg('Phone is invalid (Must be 10 digits)')
     }else if(!password.match(/.{6,}/)){
       setLoading(false)
       setMsg('Password must be at least 6 characters')
@@ -125,4 +125,4 @@ export default function Signup() {
     }
     </div>
   )
-}
+})
